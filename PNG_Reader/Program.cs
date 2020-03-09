@@ -7,6 +7,7 @@ namespace PNG_Reader
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello Mr Krzysztof");
         }
     }
 }
