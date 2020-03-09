@@ -8,6 +8,7 @@ namespace PNG_Reader
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("Hello Mr Krzysztof");
+            Console.WriteLine("Buongiorno Sig. Robert");
         }
     }
 }
