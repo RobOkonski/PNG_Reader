@@ -22,13 +22,9 @@ namespace PNG_Reader
             }
 
             byte[] bytes = File.ReadAllBytes(filePath);
+            string hex = BitConverter.ToString(bytes);
 
-            for (int i=0; i<100; i++)
-            {
-                Console.Write("[{0}]", bytes[i]);
-            }
-
-            //Console.WriteLine(buf);
+            Console.WriteLine(hex);
             Console.WriteLine("Wypisano");
         }
     }
