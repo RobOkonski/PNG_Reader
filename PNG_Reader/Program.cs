@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.IO;
 
 namespace PNG_Reader
@@ -7,18 +8,27 @@ namespace PNG_Reader
     {
         static void Main(string[] args)
         {
-            string fileName = "car-967387_1280.png";
+            string fileName = "car-967387_640.png";
             string fileDir = "C:\\Users\\Student241540\\source\\repos\\PNG_Reader\\PNG_Reader\\data";
             string buf = "";
             string filePath = Path.Combine(fileDir, fileName);
 
-            if(File.Exists(filePath))
+            ASCIIEncoding ascii = new ASCIIEncoding();
+
+            if (File.Exists(filePath))
             {
                 buf = File.ReadAllText(filePath);
                 Console.WriteLine("Odczytano");
             }
 
-            Console.WriteLine(buf);
+            byte[] bytes = File.ReadAllBytes(filePath);
+
+            for (int i=0; i<100; i++)
+            {
+                Console.Write("[{0}]", bytes[i]);
+            }
+
+            //Console.WriteLine(buf);
             Console.WriteLine("Wypisano");
         }
     }
