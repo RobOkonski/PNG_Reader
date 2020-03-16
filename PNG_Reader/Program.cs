@@ -10,19 +10,16 @@ namespace PNG_Reader
         {
             string fileName = "car-967387_640.png";
             string fileDir = "C:\\Users\\Student241540\\source\\repos\\PNG_Reader\\PNG_Reader\\data";
-            string buf = "";
             string filePath = Path.Combine(fileDir, fileName);
+            string hex = "";
 
             ASCIIEncoding ascii = new ASCIIEncoding();
 
             if (File.Exists(filePath))
             {
-                buf = File.ReadAllText(filePath);
-                Console.WriteLine("Odczytano");
+                byte[] bytes = File.ReadAllBytes(filePath);
+                hex = BitConverter.ToString(bytes);
             }
-
-            byte[] bytes = File.ReadAllBytes(filePath);
-            string hex = BitConverter.ToString(bytes);
 
             Console.WriteLine(hex);
             Console.WriteLine("Wypisano");
