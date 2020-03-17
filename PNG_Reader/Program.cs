@@ -8,8 +8,10 @@ namespace PNG_Reader
     {
         static void Main(string[] args)
         {
-            string fileName = "car-967387_640.png";
-            string fileDir = "C:\\Users\\Student241540\\source\\repos\\PNG_Reader\\PNG_Reader\\data";
+            string fileName = "data\\car-967387_640.png";
+            //string fileDir_Rob = "C:\\Users\\Student241540\\source\\repos\\PNG_Reader\\PNG_Reader\\data";
+            //string fileDir_Chris = "C:\\Users\\ReXuS\\Source\\Repos\\RobOkonski\\PNG_Reader\\PNG_Reader\\data";
+            string fileDir= Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             string hex = "";
 
@@ -23,6 +25,7 @@ namespace PNG_Reader
 
             Console.WriteLine(hex);
             Console.WriteLine("Wypisano");
+            Console.WriteLine(filePath);
         }
     }
 }
