@@ -6,17 +6,19 @@ namespace PNG_Reader
 {
     class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
+            PNG_signs signs = new PNG_signs();
+
             string fileName = "data\\car-967387_640.png";
-            //string fileDir_Rob = "C:\\Users\\Student241540\\source\\repos\\PNG_Reader\\PNG_Reader\\data";
-            //string fileDir_Chris = "C:\\Users\\ReXuS\\Source\\Repos\\RobOkonski\\PNG_Reader\\PNG_Reader\\data";
-            string fileDir= Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
+            string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
-            string hex = "";
 
-            ASCIIEncoding ascii = new ASCIIEncoding();
+            BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
 
+            //DO USUNIECIA - TESTOWE WCZYTANIE
+            /*  
+            string hex = ""''
             if (File.Exists(filePath))
             {
                 byte[] bytes = File.ReadAllBytes(filePath);
@@ -26,6 +28,28 @@ namespace PNG_Reader
             Console.WriteLine(hex);
             Console.WriteLine("Wypisano");
             Console.WriteLine(filePath);
+            */
+
+            if(!(signs.IsPNG(Pic)))
+            {
+                Console.WriteLine("Obraz nie PNG");
+            }
+
+            byte[] buff = new byte[4];
+            buff = Pic.ReadBytes(4);
+
+            while(!(BitConverter.ToString(buff)==signs.IHDR_sign))
+            {
+                buff[0] = buff[1];
+                buff[1] = buff[2];
+                buff[2] = buff[3];
+                buff[3] = Pic.ReadByte();
+            }
+
+            IHDR ihdr = new IHDR();
+
+            ihdr.ReadData(Pic);
+            ihdr.DisplayData();
         }
     }
 }
