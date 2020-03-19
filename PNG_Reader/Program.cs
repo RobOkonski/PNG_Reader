@@ -11,7 +11,7 @@ namespace PNG_Reader
             PNG_signs signs = new PNG_signs();
             IHDR ihdr = new IHDR();
 
-            string fileName = "data\\car-967387_640.png";
+            string fileName = "data\\multipla.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             
