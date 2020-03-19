@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Collections.Generic;
 
 namespace PNG_Reader
 {
@@ -10,6 +11,8 @@ namespace PNG_Reader
         {
             PNG_signs signs = new PNG_signs();
             IHDR ihdr = new IHDR();
+            Queue<SignInfo> existingSigns = new Queue<SignInfo>();
+
 
             string fileName = "data\\multipla.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
@@ -17,7 +20,16 @@ namespace PNG_Reader
             
             int chunk;
 
-            BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
+            BinaryReader test = new BinaryReader(File.OpenRead(filePath));
+
+            if (!(signs.IsPNG(test))) Console.WriteLine("Obraz nie PNG");
+
+            signs.ExploreFile(test, existingSigns);
+
+            while(existingSigns.Count != 0)
+            {
+                existingSigns.Dequeue().Display();
+            }
 
             //DO USUNIECIA - TESTOWE WCZYTANIE
             /*  
@@ -33,7 +45,9 @@ namespace PNG_Reader
             Console.WriteLine(filePath);
             */
 
-            if(!(signs.IsPNG(Pic))) Console.WriteLine("Obraz nie PNG");
+            BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
+
+            if (!(signs.IsPNG(Pic))) Console.WriteLine("Obraz nie PNG");
 
             do{
                 chunk = signs.FindSign(Pic);
