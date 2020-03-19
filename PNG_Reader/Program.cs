@@ -9,6 +9,7 @@ namespace PNG_Reader
         public static void Main(string[] args)
         {
             PNG_signs signs = new PNG_signs();
+            IHDR ihdr = new IHDR();
 
             string fileName = "data\\car-967387_640.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
@@ -39,7 +40,6 @@ namespace PNG_Reader
 
                 if (chunk == 1)
                 {
-                    IHDR ihdr = new IHDR();
                     ihdr.ReadData(Pic);
                     ihdr.DisplayData();
                 }
