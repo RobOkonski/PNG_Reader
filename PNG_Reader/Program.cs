@@ -35,21 +35,30 @@ namespace PNG_Reader
                 Console.WriteLine("Obraz nie PNG");
             }
 
-            byte[] buff = new byte[4];
-            buff = Pic.ReadBytes(4);
+            int chunk;
 
-            while(!(BitConverter.ToString(buff)==signs.IHDR_sign))
+            do
             {
-                buff[0] = buff[1];
-                buff[1] = buff[2];
-                buff[2] = buff[3];
-                buff[3] = Pic.ReadByte();
-            }
+                chunk = signs.FindSign(Pic);
 
-            IHDR ihdr = new IHDR();
+                if (chunk == 1)
+                {
+                    IHDR ihdr = new IHDR();
+                    ihdr.ReadData(Pic);
+                    ihdr.DisplayData();
+                }
+                else if(chunk==2)
+                {
+                    Console.WriteLine("[PLTE]");
+                }
+                else if(chunk==3)
+                {
+                    Console.WriteLine("[IDAT]");
+                }
 
-            ihdr.ReadData(Pic);
-            ihdr.DisplayData();
+            } while (!(chunk==0));
+
+            Console.WriteLine("Koniec");
         }
     }
 }
