@@ -13,6 +13,8 @@ namespace PNG_Reader
             string fileName = "data\\car-967387_640.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
+            
+            int chunk;
 
             BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
 
@@ -30,15 +32,9 @@ namespace PNG_Reader
             Console.WriteLine(filePath);
             */
 
-            if(!(signs.IsPNG(Pic)))
-            {
-                Console.WriteLine("Obraz nie PNG");
-            }
+            if(!(signs.IsPNG(Pic))) Console.WriteLine("Obraz nie PNG");
 
-            int chunk;
-
-            do
-            {
+            do{
                 chunk = signs.FindSign(Pic);
 
                 if (chunk == 1)

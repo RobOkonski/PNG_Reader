@@ -28,13 +28,11 @@ namespace PNG_Reader
 
         public int FindSign(BinaryReader Pic)
         {
-            //Console.WriteLine("Jestem");
             byte[] buff = new byte[4];
             buff = Pic.ReadBytes(4);
 
             while (!(BitConverter.ToString(buff) == IEND_sign))
             {
-               //Console.WriteLine("Szukam");
                 buff[0] = buff[1];
                 buff[1] = buff[2];
                 buff[2] = buff[3];
@@ -42,7 +40,6 @@ namespace PNG_Reader
                 if (BitConverter.ToString(buff) == IHDR_sign) return 1;
                 if (BitConverter.ToString(buff) == PLTE_sign) return 2;
                 if (BitConverter.ToString(buff) == IDAT_sign) return 3;
-
             }
 
             return 0;
