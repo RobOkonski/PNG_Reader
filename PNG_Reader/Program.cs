@@ -63,11 +63,18 @@ namespace PNG_Reader
                         ihdr.ReadData(Pic);
                         ihdr.DisplayData();
                     }
-                    else if (s.Sign == "PLTE") Console.WriteLine("Color quantity: {0}", s.byteLength / 3);
+                    else if (s.Sign == "PLTE") Console.WriteLine(" - colorQuantity: {0}", s.byteLength / 3);
                     else if (s.Sign == "gAMA")
                     {
                         int gama = Int32.Parse(BitConverter.ToString(Pic.ReadBytes(4)).Replace("-", ""), System.Globalization.NumberStyles.HexNumber);
-                        Console.WriteLine("GAMA: {0}", (double)gama / 100000);
+                        Console.WriteLine(" - gama: {0}", (double)gama / 100000);
+                    }
+                    else if(s.Sign == "cHRM")
+                    {
+                        cHRM chrm = new cHRM();
+                        chrm.ReadData(Pic);
+                        chrm.DisplayData();
+
                     }
                     else
                     {
