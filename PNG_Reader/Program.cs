@@ -47,7 +47,7 @@ namespace PNG_Reader
 
             BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
 
-            if (!(signs.IsPNG(Pic))) Console.WriteLine("Obraz nie PNG");
+            if (signs.IsPNG(Pic)) Console.WriteLine("Obraz PNG");
 
             while(existingSigns.Count != 0)
             {
@@ -56,7 +56,7 @@ namespace PNG_Reader
 
                 if (chunk == 1)
                 {
-                    Console.WriteLine("\n[{0}], length: {1}\n", s.Sign, s.byteLength);
+                    Console.WriteLine("\n[{0}], byteLength: {1}\n", s.Sign, s.byteLength);
 
                     if (s.Sign == "IHDR")
                     {
@@ -72,7 +72,7 @@ namespace PNG_Reader
 
             }
 
-            Console.WriteLine("[IEND]");
+            Console.WriteLine("\n[IEND]\n");
         }
     }
 }

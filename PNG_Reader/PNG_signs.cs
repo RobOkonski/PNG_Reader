@@ -41,7 +41,6 @@ namespace PNG_Reader
         {
             if (BitConverter.ToString(Pic.ReadBytes(8)) == PNG_sign)
             {
-                Console.WriteLine("Obraz PNG");
                 return true;
             }
             else
