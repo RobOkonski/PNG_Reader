@@ -94,16 +94,14 @@ namespace PNG_Reader
             } while (!(hexBuff == IEND_sign));
         }
 
-        public int FindSign(BinaryReader Pic)
+        public int FindSign(BinaryReader Pic, string hexSign)
         {
             byte[] buff = new byte[4];
             buff = Pic.ReadBytes(4);
 
             while (!(BitConverter.ToString(buff) == IEND_sign))
             {
-                if (BitConverter.ToString(buff) == IHDR_sign) return 1;
-                if (BitConverter.ToString(buff) == PLTE_sign) return 2;
-                if (BitConverter.ToString(buff) == IDAT_sign) return 3;
+                if (BitConverter.ToString(buff) == hexSign) return 1;
                 buff[0] = buff[1];
                 buff[1] = buff[2];
                 buff[2] = buff[3];
