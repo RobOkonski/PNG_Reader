@@ -17,7 +17,6 @@ namespace PNG_Reader
 
         public void DisplayData()
         {
-            Console.WriteLine("IHDR data:");
             Console.WriteLine(" - width: " + width);
             Console.WriteLine(" - height: " + height);
             Console.WriteLine(" - bitDepth: " + bitDepth);

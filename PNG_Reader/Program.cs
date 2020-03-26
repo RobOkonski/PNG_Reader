@@ -14,7 +14,7 @@ namespace PNG_Reader
             Queue<SignInfo> existingSigns = new Queue<SignInfo>();
 
 
-            string fileName = "data\\";
+            string fileName = "data\\car-967387_640.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             
@@ -56,7 +56,18 @@ namespace PNG_Reader
 
                 if (chunk == 1)
                 {
-                    Console.WriteLine("{0}, length: {1}", s.Sign, s.byteLength);
+                    Console.WriteLine("\n[{0}], length: {1}\n", s.Sign, s.byteLength);
+
+                    if (s.Sign == "IHDR")
+                    {
+                        ihdr.ReadData(Pic);
+                        ihdr.DisplayData();
+                    }
+                    else if (s.Sign == "PLTE") Console.WriteLine("Color quantity: {0}",s.byteLength/3);
+                    else
+                    {
+                        Console.WriteLine(BitConverter.ToString(Pic.ReadBytes(s.byteLength)));
+                    }
                 }
 
             }
