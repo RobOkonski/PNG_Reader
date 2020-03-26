@@ -14,7 +14,7 @@ namespace PNG_Reader
             Queue<SignInfo> existingSigns = new Queue<SignInfo>();
 
 
-            string fileName = "data\\car-967387_640.png";
+            string fileName = "data\\";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             
@@ -26,10 +26,10 @@ namespace PNG_Reader
 
             signs.ExploreFile(test, existingSigns);
 
-            while(existingSigns.Count != 0)
+            /*while(existingSigns.Count != 0)
             {
                 existingSigns.Dequeue().Display();
-            }
+            }*/
 
             //DO USUNIECIA - TESTOWE WCZYTANIE
             /*  
@@ -49,24 +49,17 @@ namespace PNG_Reader
 
             if (!(signs.IsPNG(Pic))) Console.WriteLine("Obraz nie PNG");
 
-            do{
-                chunk = signs.FindSign(Pic);
+            while(existingSigns.Count != 0)
+            {
+                SignInfo s = existingSigns.Dequeue();
+                chunk = signs.FindSign(Pic, s.hexSign);
 
                 if (chunk == 1)
                 {
-                    ihdr.ReadData(Pic);
-                    ihdr.DisplayData();
-                }
-                else if(chunk==2)
-                {
-                    Console.WriteLine("[PLTE]");
-                }
-                else if(chunk==3)
-                {
-                    Console.WriteLine("[IDAT]");
+                    Console.WriteLine("{0}, length: {1}", s.Sign, s.byteLength);
                 }
 
-            } while (!(chunk==0));
+            }
 
             Console.WriteLine("Koniec");
         }
