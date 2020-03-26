@@ -72,7 +72,7 @@ namespace PNG_Reader
 
             }
 
-            Console.WriteLine("Koniec");
+            Console.WriteLine("[IEND]");
         }
     }
 }
