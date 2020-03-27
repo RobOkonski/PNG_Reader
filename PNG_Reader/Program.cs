@@ -14,7 +14,7 @@ namespace PNG_Reader
             Queue<SignInfo> existingSigns = new Queue<SignInfo>();
 
 
-            string fileName = "data\\adaptive.png";
+            string fileName = "data\\Screen_color_test_Amiga_4colors.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             
