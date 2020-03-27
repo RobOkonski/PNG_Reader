@@ -9,7 +9,7 @@ namespace PNG_Reader
     {
         public byte[] plteSign = { 80, 76, 84, 69 };
         public byte[] plte;
-        public byte[] plteControlSum = new byte[8];
+        public byte[] plteControlSum = new byte[4];
         public int colorQuantity = 0;
 
         public PLTE(int byteLength)
@@ -20,7 +20,7 @@ namespace PNG_Reader
         public void ReadData(BinaryReader Pic, int byteLength)
         {
             plte = Pic.ReadBytes(byteLength);
-            plteControlSum = Pic.ReadBytes(8);
+            plteControlSum = Pic.ReadBytes(4);
             colorQuantity = byteLength / 3;
         }
 

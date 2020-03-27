@@ -12,9 +12,10 @@ namespace PNG_Reader
             PNG_signs signs = new PNG_signs();
             IHDR ihdr = new IHDR();
             Queue<SignInfo> existingSigns = new Queue<SignInfo>();
+            byte[] garbage = new byte[4];
 
 
-            string fileName = "data\\adaptive.png";
+            string fileName = "data\\senna.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
             string newPath = Path.Combine(fileDir, "data\\test.png");
@@ -64,6 +65,7 @@ namespace PNG_Reader
                     if (s.Sign == "IHDR")
                     {
                         ihdr.ReadData(Pic);
+                        garbage = Pic.ReadBytes(4);
                         ihdr.DisplayData();
                         ihdr.WriteData(anonim);
                     }
@@ -72,17 +74,21 @@ namespace PNG_Reader
                         PLTE plte = new PLTE(s.byteLength);
                         plte.ReadData(Pic, s.byteLength);
                         plte.DisplayData();
+                        anonim.Write(garbage);
                         plte.WriteData(anonim);
+                        garbage = Pic.ReadBytes(4);
                     }
                     else if (s.Sign == "gAMA")
                     {
                         int gama = Int32.Parse(BitConverter.ToString(Pic.ReadBytes(4)).Replace("-", ""), System.Globalization.NumberStyles.HexNumber);
                         Console.WriteLine(" - gama: {0}", (double)gama / 100000);
+                        garbage = Pic.ReadBytes(4);
                     }
                     else if(s.Sign == "cHRM")
                     {
                         cHRM chrm = new cHRM();
                         chrm.ReadData(Pic);
+                        garbage = Pic.ReadBytes(4);
                         chrm.DisplayData();
                     }
                     else if (s.Sign == "IDAT")
@@ -90,11 +96,14 @@ namespace PNG_Reader
                         IDAT idat = new IDAT(s.byteLength);
                         idat.ReadData(Pic, s.byteLength);
                         idat.DisplayData();
+                        anonim.Write(garbage);
                         idat.WriteData(anonim);
+                        garbage = Pic.ReadBytes(4);
                     }
                     else
                     {
                         Console.WriteLine(BitConverter.ToString(Pic.ReadBytes(s.byteLength)));
+                        garbage = Pic.ReadBytes(4);
                     }
                 }
 
@@ -102,6 +111,7 @@ namespace PNG_Reader
 
             IEND iend = new IEND();
             iend.ReadData(Pic);
+            anonim.Write(garbage);
             iend.WriteData(anonim);
 
             Pic.Close();

@@ -23,7 +23,7 @@ namespace PNG_Reader
         public byte[] byteCompresionMethod = new byte[1];
         public byte[] byteFilterMethod = new byte[1];
         public byte[] byteInterlanceMethod = new byte[1];
-        public byte[] ihdrControlSum = new byte[8];
+        public byte[] ihdrControlSum = new byte[4];
 
         public void DisplayData()
         {
@@ -45,7 +45,7 @@ namespace PNG_Reader
             byteCompresionMethod = Pic.ReadBytes(1);
             byteFilterMethod = Pic.ReadBytes(1);
             byteInterlanceMethod = Pic.ReadBytes(1);
-            ihdrControlSum = Pic.ReadBytes(8);
+            ihdrControlSum = Pic.ReadBytes(4);
             width = Int32.Parse(BitConverter.ToString(byteWidth).Replace("-", ""), System.Globalization.NumberStyles.HexNumber);
             height = Int32.Parse(BitConverter.ToString(byteHeight).Replace("-", ""), System.Globalization.NumberStyles.HexNumber);
             bitDepth = Int32.Parse(BitConverter.ToString(byteBitDepth), System.Globalization.NumberStyles.HexNumber);

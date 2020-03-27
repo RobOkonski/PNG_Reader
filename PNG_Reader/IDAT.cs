@@ -9,7 +9,7 @@ namespace PNG_Reader
     {
         public byte[] idatSign = { 73, 68, 65, 84 };
         public byte[] idat;
-        public byte[] idatControlSum = new byte[8];
+        public byte[] idatControlSum = new byte[4];
         public string idatData = "";
 
         public IDAT(int byteLength)
@@ -20,7 +20,7 @@ namespace PNG_Reader
         public void ReadData(BinaryReader Pic, int byteLength)
         {
             idat = Pic.ReadBytes(byteLength);
-            idatControlSum = Pic.ReadBytes(8);
+            idatControlSum = Pic.ReadBytes(4);
             idatData = BitConverter.ToString(idat);
         }
 

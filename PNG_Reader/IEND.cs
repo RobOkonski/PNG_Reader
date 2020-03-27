@@ -8,11 +8,11 @@ namespace PNG_Reader
     public class IEND
     {
         public byte[] iendSign = {73,69,78,68};
-        public byte[] controlSum = new byte[8];
+        public byte[] controlSum = new byte[4];
 
         public void ReadData(BinaryReader Pic)
         {
-            controlSum = Pic.ReadBytes(8);
+            controlSum = Pic.ReadBytes(4);
         }
 
         public void WriteData(BinaryWriter anonim)
