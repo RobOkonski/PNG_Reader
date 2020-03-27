@@ -74,7 +74,12 @@ namespace PNG_Reader
                         cHRM chrm = new cHRM();
                         chrm.ReadData(Pic);
                         chrm.DisplayData();
-
+                    }
+                    else if (s.Sign == "IDAT")
+                    {
+                        IDAT idat = new IDAT(s.byteLength);
+                        idat.ReadData(Pic, s.byteLength);
+                        idat.DisplayData();
                     }
                     else
                     {

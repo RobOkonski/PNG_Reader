@@ -15,11 +15,11 @@ namespace PNG_Reader
                                                      { "pHYs", "70-48-59-73" }, { "sBIT", "73-42-49-54" }, { "sPLT", "73-50-4C-54" },
                                                      { "sRGB", "73-52-47-42" }, { "sTER", "73-54-45-52" }, { "tEXt", "74-45-58-74" },
                                                      { "tIME", "74-49-4D-45" }, { "tRNS", "74-52-4E-53" }, { "zTXt", "7A-54-58-74" } };
-        public string IHDR_sign = "49-48-44-52";
+        /*public string IHDR_sign = "49-48-44-52";
         public string PLTE_sign = "50-4C-54-45";
-        public string IDAT_sign = "49-44-41-54";
+        public string IDAT_sign = "49-44-41-54";*/
         public string IEND_sign = "49-45-4E-44";
-        public string bKGD_sign = "62-4B-47-44";
+        /*public string bKGD_sign = "62-4B-47-44";
         public string cHRM_sign = "63-48-52-4D";
         public string dSIG_sign = "64-53-49-47";
         public string eXIf_sign = "65-58-49-66";
@@ -35,7 +35,7 @@ namespace PNG_Reader
         public string tEXt_sign = "74-45-58-74";
         public string tIME_sign = "74-49-4D-45";
         public string tRNS_sign = "74-52-4E-53";
-        public string zTXt_sign = "7A-54-58-74";
+        public string zTXt_sign = "7A-54-58-74";*/
 
         public bool IsPNG(BinaryReader Pic)
         {
@@ -52,7 +52,7 @@ namespace PNG_Reader
         public void ExploreFile(BinaryReader Pic, Queue<SignInfo> existingSigns)
         {
             byte[] buff = new byte[4];
-            string hexBuff = null;
+            string hexBuff;
             string hexSign = null;
             string sign_name = null;
             int iterator = 0;
@@ -79,7 +79,7 @@ namespace PNG_Reader
                             SignInfo sign = new SignInfo();
                             sign.Sign = sign_name;
                             sign.hexSign = hexSign;
-                            sign.byteLength = iterator-12;
+                            sign.byteLength = iterator-12; // -12 to get rid of control sum and to read all new chunk sign to the buffor
                             existingSigns.Enqueue(sign);
                             hexSign = hexBuff;
                             sign_name = signs[i, 0];
@@ -95,7 +95,7 @@ namespace PNG_Reader
 
         public int FindSign(BinaryReader Pic, string hexSign)
         {
-            byte[] buff = new byte[4];
+            byte[] buff;
             buff = Pic.ReadBytes(4);
 
             while (!(BitConverter.ToString(buff) == IEND_sign))
