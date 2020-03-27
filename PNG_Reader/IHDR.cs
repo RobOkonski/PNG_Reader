@@ -41,6 +41,7 @@ namespace PNG_Reader
             byteWidth = Pic.ReadBytes(4);
             byteHeight = Pic.ReadBytes(4);
             byteBitDepth = Pic.ReadBytes(1);
+            byteColorType = Pic.ReadBytes(1);
             byteCompresionMethod = Pic.ReadBytes(1);
             byteFilterMethod = Pic.ReadBytes(1);
             byteInterlanceMethod = Pic.ReadBytes(1);

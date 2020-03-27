@@ -17,7 +17,7 @@ namespace PNG_Reader
             string fileName = "data\\adaptive.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
-            string newPath = Path.Combine(fileDir, "data\\test");
+            string newPath = Path.Combine(fileDir, "data\\test.png");
             
             int chunk;
 
