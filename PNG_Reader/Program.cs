@@ -17,10 +17,12 @@ namespace PNG_Reader
             string fileName = "data\\adaptive.png";
             string fileDir = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory())));
             string filePath = Path.Combine(fileDir, fileName);
+            string newPath = Path.Combine(fileDir, "data\\test");
             
             int chunk;
 
             BinaryReader test = new BinaryReader(File.OpenRead(filePath));
+            BinaryWriter anonim = new BinaryWriter(File.OpenWrite(newPath));
 
             if (!(signs.IsPNG(test))) Console.WriteLine("Obraz nie PNG");
 
@@ -48,6 +50,7 @@ namespace PNG_Reader
             BinaryReader Pic = new BinaryReader(File.OpenRead(filePath));
 
             if (signs.IsPNG(Pic)) Console.WriteLine("Obraz PNG");
+            signs.WriteData(anonim);
 
             while(existingSigns.Count != 0)
             {
@@ -62,8 +65,15 @@ namespace PNG_Reader
                     {
                         ihdr.ReadData(Pic);
                         ihdr.DisplayData();
+                        ihdr.WriteData(anonim);
                     }
-                    else if (s.Sign == "PLTE") Console.WriteLine(" - colorQuantity: {0}", s.byteLength / 3);
+                    else if (s.Sign == "PLTE")
+                    {
+                        PLTE plte = new PLTE(s.byteLength);
+                        plte.ReadData(Pic, s.byteLength);
+                        plte.DisplayData();
+                        plte.WriteData(anonim);
+                    }
                     else if (s.Sign == "gAMA")
                     {
                         int gama = Int32.Parse(BitConverter.ToString(Pic.ReadBytes(4)).Replace("-", ""), System.Globalization.NumberStyles.HexNumber);
@@ -80,6 +90,7 @@ namespace PNG_Reader
                         IDAT idat = new IDAT(s.byteLength);
                         idat.ReadData(Pic, s.byteLength);
                         idat.DisplayData();
+                        idat.WriteData(anonim);
                     }
                     else
                     {
@@ -88,6 +99,13 @@ namespace PNG_Reader
                 }
 
             }
+
+            IEND iend = new IEND();
+            iend.ReadData(Pic);
+            iend.WriteData(anonim);
+
+            Pic.Close();
+            anonim.Close();
 
             Console.WriteLine("\n[IEND]\n");
         }

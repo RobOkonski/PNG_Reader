@@ -7,6 +7,8 @@ namespace PNG_Reader
 {
     class PNG_signs
     {
+        public byte[] bytePNG_Sign = new byte[8];
+        public byte[] controlSum = new byte[4];
         public string PNG_sign = "89-50-4E-47-0D-0A-1A-0A";
         public string[,] signs = new string[21, 2] { { "IHDR", "49-48-44-52" }, { "PLTE", "50-4C-54-45" }, { "IDAT", "49-44-41-54" },
                                                      { "IEND", "49-45-4E-44" }, { "bKGD", "62-4B-47-44" }, { "cHRM", "63-48-52-4D" },
@@ -39,7 +41,9 @@ namespace PNG_Reader
 
         public bool IsPNG(BinaryReader Pic)
         {
-            if (BitConverter.ToString(Pic.ReadBytes(8)) == PNG_sign)
+            bytePNG_Sign = Pic.ReadBytes(8);
+            controlSum = Pic.ReadBytes(4);
+            if (BitConverter.ToString(bytePNG_Sign) == PNG_sign)
             {
                 return true;
             }
@@ -108,6 +112,11 @@ namespace PNG_Reader
             }
 
             return 0;
+        }
+        public void WriteData(BinaryWriter anonim)
+        {
+            anonim.Write(bytePNG_Sign);
+            anonim.Write(controlSum);
         }
     }
 }

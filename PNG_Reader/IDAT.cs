@@ -7,6 +7,7 @@ namespace PNG_Reader
 {
     public class IDAT
     {
+        public byte[] idatSign = { 73, 68, 65, 84 };
         public byte[] idat;
         public byte[] idatControlSum = new byte[8];
         public string idatData = "";
@@ -26,6 +27,12 @@ namespace PNG_Reader
         public void DisplayData()
         {
             Console.WriteLine(idatData);
+        }
+        public void WriteData(BinaryWriter anonim)
+        {
+            anonim.Write(idatSign);
+            anonim.Write(idat);
+            anonim.Write(idatControlSum);
         }
     }
 }
